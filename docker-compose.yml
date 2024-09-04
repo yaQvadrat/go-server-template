@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  app:
+    image: go_app
+    build: .
+    env_file:
+      - .env
+    depends_on:
+      - psql
+    volumes:
+      - logs:/logs
+    ports:
+      - "${HTTP_PORT}:${HTTP_PORT}"
+    restart: unless-stopped
+
+  
+  psql:
+    environment:
+      - POSTGRES_HOST='${POSTGRES_HOST}'
+      - POSTGRES_PORT='${POSTGRES_PORT}'
+      - POSTGRES_USER='${POSTGRES_USER}'
+      - POSTGRES_PASSWORD='${POSTGRES_PASSWORD}'
+      - POSTGRES_DB='${POSTGRES_DB}'
+    image: postgres:14-alpine
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    restart: unless-stopped
+
+volumes:
+  pg-data:
+    driver: local
+  logs:
+    driver: local
