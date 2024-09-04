@@ -9,10 +9,10 @@ import (
 
 type (
 	Config struct {
-		App		`yaml:"app"`
-		HTTP	`yaml:"http"`
-		Log		`yaml:"log"`
-		PG		`yaml:"postgres"`
+		App     `yaml:"app"`
+		HTTP    `yaml:"http"`
+		Log     `yaml:"log"`
+		PG      `yaml:"postgres"`
 	}
 
 	App struct {
