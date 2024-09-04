@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  app:
+  go_server:
     image: go_app
     build: .
     env_file:
@@ -13,8 +13,8 @@ services:
     ports:
       - "${HTTP_PORT}:${HTTP_PORT}"
     restart: unless-stopped
+    container_name: server
 
-  
   psql:
     environment:
       - POSTGRES_HOST: ${POSTGRES_HOST}
@@ -28,6 +28,8 @@ services:
     ports:
       - "${POSTGRES_PORT}:${POSTGRES_PORT}"
     restart: unless-stopped
+    container_name: psql
+
 
 volumes:
   pg-data:
