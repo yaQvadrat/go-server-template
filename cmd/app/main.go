@@ -4,7 +4,6 @@ import (
 	"app/internal/app"
 )
 
-
 func main() {
-    app.Run()
+	app.Run()
 }

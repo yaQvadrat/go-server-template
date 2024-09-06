@@ -11,11 +11,10 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-
 const (
-	defaultMaxPoolSize = 1
+	defaultMaxPoolSize  = 1
 	defaultConnAttempts = 10
-	defaultConnTimeout = time.Second
+	defaultConnTimeout  = time.Second
 )
 
 type PgxPool interface {
@@ -32,18 +31,18 @@ type PgxPool interface {
 }
 
 type Postgres struct {
-	maxPoolSize int
+	maxPoolSize  int
 	connAttempts int
-	connTimeout time.Duration
+	connTimeout  time.Duration
 
 	Pool PgxPool
 }
 
 func New(pg_url string, opts ...Option) (*Postgres, error) {
 	pg := &Postgres{
-		maxPoolSize: defaultMaxPoolSize,
+		maxPoolSize:  defaultMaxPoolSize,
 		connAttempts: defaultConnAttempts,
-		connTimeout: defaultConnTimeout,
+		connTimeout:  defaultConnTimeout,
 	}
 
 	for _, opt := range opts {
@@ -56,7 +55,7 @@ func New(pg_url string, opts ...Option) (*Postgres, error) {
 	}
 
 	poolConfig.MaxConns = int32(pg.maxPoolSize)
-	
+
 	for pg.connAttempts > 0 {
 		pg.Pool, err = pgxpool.NewWithConfig(context.Background(), poolConfig)
 		if err != nil {

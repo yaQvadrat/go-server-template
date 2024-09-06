@@ -6,13 +6,12 @@ import (
 	"github.com/ilyakaznacheev/cleanenv"
 )
 
-
 type (
 	Config struct {
-		App     `yaml:"app"`
-		HTTP    `yaml:"http"`
-		Log     `yaml:"log"`
-		PG      `yaml:"postgres"`
+		App  `yaml:"app"`
+		HTTP `yaml:"http"`
+		Log  `yaml:"log"`
+		PG   `yaml:"postgres"`
 	}
 
 	App struct {
@@ -33,7 +32,6 @@ type (
 		URL         string `env-required:"true"                      env:"PG_URL"`
 	}
 )
-
 
 func New(configPath string) (*Config, error) {
 	cfg := &Config{}

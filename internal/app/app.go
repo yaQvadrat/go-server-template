@@ -14,11 +14,10 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-
 func Run() {
 	// Config
 	configPath, ok := os.LookupEnv("APP_CONFIG_PATH")
-	if !ok || len(configPath) == 0{
+	if !ok || len(configPath) == 0 {
 		log.Fatal("app - os.LookupEnv: APP_CONFIG_PATH not specified")
 	}
 
@@ -55,9 +54,9 @@ func Run() {
 	signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
 
 	select {
-	case s := <- signalChan:
+	case s := <-signalChan:
 		log.Infof("app - Run - signal: %s", s)
-	case err := <- httpServer.Notify():
+	case err := <-httpServer.Notify():
 		log.Error(fmt.Errorf("app - Run - httpServer.Notify: %w", err))
 	}
 

@@ -2,9 +2,7 @@ package postgres
 
 import "time"
 
-
 type Option func(*Postgres)
-
 
 func MaxPoolSize(size int) Option {
 	return func(p *Postgres) {

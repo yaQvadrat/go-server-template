@@ -1,4 +1,5 @@
 //go:build migrate
+
 package app
 
 import (
@@ -13,12 +14,10 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-
 const (
 	defaultAttempts = 10
 	defaultTimeout  = time.Second
 )
-
 
 func init() {
 	log.Info("Configuring migrations...")
@@ -30,8 +29,8 @@ func init() {
 
 	var (
 		connAttempts = defaultAttempts
-		err error
-		mgrt *migrate.Migrate
+		err          error
+		mgrt         *migrate.Migrate
 	)
 
 	for connAttempts > 0 {

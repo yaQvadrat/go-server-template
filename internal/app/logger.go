@@ -2,7 +2,6 @@ package app
 
 import log "github.com/sirupsen/logrus"
 
-
 func setLogrus(level string) {
 	logrusLevel, err := log.ParseLevel(level)
 	if err != nil {

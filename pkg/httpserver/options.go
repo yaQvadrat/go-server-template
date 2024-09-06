@@ -5,9 +5,7 @@ import (
 	"time"
 )
 
-
 type Option func(*HttpServer)
-
 
 func ReadTimeout(timeout time.Duration) Option {
 	return func(hs *HttpServer) {

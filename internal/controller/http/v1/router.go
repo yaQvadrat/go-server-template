@@ -10,12 +10,11 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-
 func ConfigureRouter(handler *echo.Echo) {
 	handler.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{Output: setLogsFile()}))
 	handler.Use(middleware.Recover())
 
-	handler.GET("/health", func (c echo.Context) error {return c.NoContent(http.StatusOK)})
+	handler.GET("/health", func(c echo.Context) error { return c.NoContent(http.StatusOK) })
 }
 
 func setLogsFile() *os.File {

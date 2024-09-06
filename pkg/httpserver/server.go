@@ -6,27 +6,25 @@ import (
 	"time"
 )
 
-
 const (
-	defaultReadTimeout = 5 * time.Second
-	defaultWriteTimeout = 10 * time.Second
-	defaultAddr = ":80"
+	defaultReadTimeout     = 5 * time.Second
+	defaultWriteTimeout    = 10 * time.Second
+	defaultAddr            = ":80"
 	defaultShutdownTimeout = 5 * time.Second
 )
 
 type HttpServer struct {
-	server *http.Server
-	notify chan error
+	server          *http.Server
+	notify          chan error
 	shutdownTimeout time.Duration
 }
 
-
 func New(handler http.Handler, opts ...Option) *HttpServer {
 	httpServer := &http.Server{
-		Handler: handler,
-		ReadTimeout: defaultReadTimeout,
+		Handler:      handler,
+		ReadTimeout:  defaultReadTimeout,
 		WriteTimeout: defaultWriteTimeout,
-		Addr: defaultAddr,
+		Addr:         defaultAddr,
 	}
 
 	server := &HttpServer{
