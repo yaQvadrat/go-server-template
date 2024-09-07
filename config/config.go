@@ -2,16 +2,19 @@ package config
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/ilyakaznacheev/cleanenv"
 )
 
 type (
 	Config struct {
-		App  `yaml:"app"`
-		HTTP `yaml:"http"`
-		Log  `yaml:"log"`
-		PG   `yaml:"postgres"`
+		App    `yaml:"app"`
+		HTTP   `yaml:"http"`
+		Log    `yaml:"log"`
+		PG     `yaml:"postgres"`
+		JWT    `yaml:"jwt"`
+		Hasher `yaml:"hasher"`
 	}
 
 	App struct {
@@ -29,7 +32,16 @@ type (
 
 	PG struct {
 		MaxPoolSize int    `env-required:"true" yaml:"max_pool_size"`
-		URL         string `env-required:"true"                      env:"PG_URL"`
+		URL         string `env-required:"true" env:"PG_URL"`
+	}
+
+	JWT struct {
+		SignKey  string        `env-required:"true" env:"JWT_SIGN_KEY"`
+		TokenTTL time.Duration `env-required:"true" yaml:"token_ttl"`
+	}
+
+	Hasher struct {
+		Salt string `env-required:"true" env:"PASSWORD_HASHER_SALT"`
 	}
 )
 

@@ -3,6 +3,9 @@ package app
 import (
 	"app/config"
 	httpapi "app/internal/controller/http/v1"
+	"app/internal/repo"
+	"app/internal/service"
+	"app/pkg/hasher"
 	"app/pkg/httpserver"
 	"app/pkg/postgres"
 	"fmt"
@@ -38,10 +41,21 @@ func Run() {
 	}
 	defer pg.Close()
 
+	// Services and repos
+	log.Info("Initializing services and repos...")
+	repos := repo.NewPostgresRepo(pg)
+	services := service.NewServices(service.ServicesDependencies{
+		Repos: repos,
+		Hasher: hasher.NewSHA1Hasher(cfg.Hasher.Salt),
+		TokenTTL: cfg.JWT.TokenTTL,
+		SignKey: cfg.JWT.SignKey,
+	})
+
 	// Echo handler
 	log.Info("Initializing handlers and routes...")
 	handler := echo.New()
-	httpapi.ConfigureRouter(handler)
+	// TODO VALIDATOR
+	httpapi.ConfigureRouter(handler, services)
 
 	// HttpServer
 	log.Info("Starting HTTP server...")
